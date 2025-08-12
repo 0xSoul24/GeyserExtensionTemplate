@@ -1,6 +1,7 @@
 package org.geyser.extension.exampleid;
 
 import org.geysermc.event.subscribe.Subscribe;
+import org.geysermc.geyser.api.event.lifecycle.GeyserDefineResourcePacksEvent;
 import org.geysermc.geyser.api.event.lifecycle.GeyserLoadResourcePacksEvent;
 import org.geysermc.geyser.api.event.lifecycle.GeyserPostInitializeEvent;
 import org.geysermc.geyser.api.event.lifecycle.GeyserPreInitializeEvent;
@@ -19,7 +20,7 @@ public class ExampleExtension implements Extension {
      * are done in their respective events. See below for an example:
      */
     @Subscribe
-    public void onGeyserLoadResourcePacksEvent(GeyserLoadResourcePacksEvent event) {
+    public void onGeyserLoadResourcePacksEvent(GeyserDefineResourcePacksEvent event) {
         logger().info("Loading: " + event.resourcePacks().size() + " resource packs.");
     }
 
