@@ -1,5 +1,6 @@
 plugins {
     java
+    kotlin("jvm") version "2.3.10"
 }
 
 val id = project.property("id") as String
@@ -21,12 +22,11 @@ dependencies {
     compileOnly("org.geysermc.geyser:api:$geyserApiVersion-SNAPSHOT")
 
     // Include other dependencies here - e.g. configuration libraries.
+    implementation(kotlin("stdlib-jdk8"))
 }
 
 // Java currently requires Java 21 or higher, so extensions should also target it
 java {
-    targetCompatibility = JavaVersion.VERSION_21
-    sourceCompatibility = JavaVersion.VERSION_21
 }
 
 afterEvaluate {
@@ -56,3 +56,7 @@ tasks {
         }
     }
 }
+kotlin {
+    jvmToolchain(21)
+}
+
