@@ -25,11 +25,10 @@ class ExampleExtension : Extension {
      */
     @Subscribe
     fun onPostInitialize(event: GeyserPostInitializeEvent?) {
-        logger().info("Loading ${description().name()}...")
-
-        // Example: accessing extension data folder
-        val exampleDataFolder = dataFolder()
-        logger().info(exampleDataFolder.toString())
+        with(logger()) {
+            info("Loading ${description().name()}...")
+            info("${dataFolder()}")
+        }
     }
 
     /**
