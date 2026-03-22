@@ -32,8 +32,10 @@ java {
 afterEvaluate {
     val idRegex = Regex("[a-z][a-z0-9-_]{0,63}")
     if (idRegex.matches(id).not()) {
-        throw IllegalArgumentException("Invalid extension id $id! Must only contain lowercase letters, " +
-                "and cannot start with a number.")
+        throw IllegalArgumentException(
+            "Invalid extension id $id! Must only contain lowercase letters, " +
+                    "and cannot start with a number."
+        )
     }
 
     val nameRegex = Regex("^[A-Za-z_.-]+$")
