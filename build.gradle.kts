@@ -1,13 +1,13 @@
 plugins {
     java
-    kotlin("jvm") version "2.3.10"
+    kotlin("jvm") version "2.3.20"
 }
 
 val id = project.property("id") as String
 val extensionName = project.property("name") as String
 val author = project.property("author") as String
 val version = project.version as String
-val geyserApiVersion = "2.8.3"
+val geyserApiVersion = "2.9.5"
 
 repositories {
     // Repo for the Geyser API artifact
