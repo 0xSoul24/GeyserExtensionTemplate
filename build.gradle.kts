@@ -1,8 +1,8 @@
 plugins {
-    java
     kotlin("jvm") version "2.3.20"
+    // Shadow plugin for creating fat/uber jars
+    id("com.gradleup.shadow") version "9.4.0"
 }
-
 val id = project.property("id") as String
 val extensionName = project.property("name") as String
 val author = project.property("author") as String
@@ -23,10 +23,6 @@ dependencies {
 
     // Include other dependencies here - e.g. configuration libraries.
     implementation(kotlin("stdlib-jdk8"))
-}
-
-// Java currently requires Java 21 or higher, so extensions should also target it
-java {
 }
 
 afterEvaluate {
@@ -56,6 +52,26 @@ tasks {
                 "author" to author
             )
         }
+    }
+    // Disable the default plain jar so we only output a single jar file
+    // and configure the shadowJar (fat jar) to not use the "-all" classifier
+    // so the produced artifact matches the normal jar naming.
+    named("jar") {
+        enabled = false
+    }
+
+    // Ensure the shadow/fat jar task produces an artifact without the "-all" suffix
+    // and make assemble depend on it so `./gradlew build`/`assemble` will produce
+    // the single shadow jar.
+    named<Jar>("shadowJar") {
+        // Ensure the shadow/fat jar has no "-all" classifier so the artifact
+        // matches the standard jar name (single output file).
+        archiveClassifier.set("")
+    }
+
+    // Make assemble produce the shadow jar
+    named("assemble") {
+        dependsOn(named("shadowJar"))
     }
 }
 kotlin {
